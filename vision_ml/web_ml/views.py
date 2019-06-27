@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from .forms import ImageUploadForm
 from django.conf import settings
+from .opencv_dface import opencv_dface
 
 def first_view(request):
   return render(request, 'web_ml/first_view.html', {})
@@ -30,7 +31,7 @@ def dface(request):
             post.save()
 
             imageURL = settings.MEDIA_URL + form.instance.document.name
-            # opencv_dface(settings.MEDIA_ROOT_URL + imageURL)
+            opencv_dface(settings.MEDIA_ROOT_URL + imageURL)
 
             return render(request, 'web_ml/dface.html', {'form': form, 'post': post})
     else:
