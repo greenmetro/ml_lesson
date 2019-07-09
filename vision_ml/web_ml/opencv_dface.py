@@ -1,9 +1,39 @@
 from django.conf import settings
+from imageai.Detection import ObjectDetection
 import numpy as np
 import cv2
+import os
+from datetime import datetime
+from .models import ImageUploadModel
+
+def opencv_detector(path):
+    img = cv2.imread(path, 1)
+    cv2.imwrite(path+'_org', img)
+
+    if (1== 1):
+        execution_path = os.getcwd()
+        print(execution_path)
+        detector = ObjectDetection()
+        detector.setModelTypeAsRetinaNet()
+        detector.setModelPath(os.path.join(execution_path, "resnet50_coco_best_v2.0.1.h5"))
+        detector.loadModel()
+        detections = detector.detectObjectsFromImage(input_image=(path),output_image_path=(path))
+
+        objstr =[]
+        for eachObject in detections:
+            objstr.append(eachObject["name"])
+            print("------------------")
+            print(ImageUploadModel.objList)
+            print("------------------")
+            print(eachObject["name"], " : ", eachObject["percentage_probability"])
+        ImageUploadModel.objList = objstr
+
+    else:
+        print('someting error')
+        print(path)
 
 
-def opencv_dface(path):
+def opencv_dface_org(path):
     img = cv2.imread(path, 1)
 
     if (type(img) is np.ndarray):
