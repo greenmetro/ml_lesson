@@ -4,7 +4,8 @@ from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from .forms import ImageUploadForm
 from django.conf import settings
-from .opencv_dface import opencv_dface
+from .opencv_dface import opencv_detector
+from .models import ImageUploadModel
 
 def first_view(request):
   return render(request, 'web_ml/first_view.html', {})
@@ -23,17 +24,18 @@ def uimage(request):
       return render(request, 'web_ml/uimage.html', {'form': form})
 
 
-def dface(request):
+def objectDector_html(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
+        ImageUploadModel.objList
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
 
             imageURL = settings.MEDIA_URL + form.instance.document.name
-            opencv_dface(settings.MEDIA_ROOT_URL + imageURL)
+            opencv_detector(settings.MEDIA_ROOT_URL + imageURL)
 
-            return render(request, 'web_ml/dface.html', {'form': form, 'post': post})
+            return render(request, 'web_ml/objectDector.html', {'form': form, 'post': post,'objListNm': ImageUploadModel.objList})
     else:
         form = ImageUploadForm()
-    return render(request, 'web_ml/dface.html', {'form': form})
+    return render(request, 'web_ml/objectDector.html', {'form': form})
