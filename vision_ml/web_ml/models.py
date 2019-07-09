@@ -6,3 +6,4 @@ class ImageUploadModel(models.Model):
     document = models.ImageField(upload_to='images/%Y/%m/%d')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     objList = models.CharField(max_length=200, blank=True)
+
