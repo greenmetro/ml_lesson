@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object Detector</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+
+<table>
+    <Center>
+        <h1>Image upload for Object Dector</h1>
+        <!-- image upload start-->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+
+        {% if post %}
+        <img src="{{ post.document.url }}">
+        <p>File uploaded at: <a href="{{ post.document.url }}">{{ post.document }}</a></p>
+        <p>Objects:{{objListNm}}"</p>
+        {% endif %}
+
+        <p><a href="{% url 'obj' %}">Return to home</a></p>
+        <!-- image upload end -->
+    </Center>
+</table>
+</body>
+</html>
