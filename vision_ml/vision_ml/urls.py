@@ -21,3 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('web_ml.urls')),
 ]
+
+admin.site.site_header = 'object detector Admin'
